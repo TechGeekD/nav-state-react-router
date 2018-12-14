@@ -1,11 +1,14 @@
-import { createStore, applyMiddleware } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import history from "./history";
-import { connectRouter, routerMiddleware } from "connected-react-router";
-import reducer from "../reducers";
+import { routerMiddleware } from "connected-react-router";
+import createRootReducer from "../reducers";
+
+const initialState = {};
 
 const store = createStore(
-  connectRouter(history)(reducer),
-  applyMiddleware(routerMiddleware(history))
+  createRootReducer(history),
+  initialState,
+  compose(applyMiddleware(routerMiddleware(history)))
 );
 
 export default store;
